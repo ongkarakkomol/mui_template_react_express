@@ -6,9 +6,10 @@ import { useDispatch, useSelector } from 'react-redux';
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import { Avatar, Chip, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
+import { LineOutlined, DownOutlined, UpOutlined } from '@ant-design/icons';
 
 // project import
-import { activeItem } from 'store/reducers/menu';
+import { activeItem, activeItemCollapse } from 'store/reducers/menu';
 
 // ==============================|| NAVIGATION - LIST ITEM ||============================== //
 
@@ -16,7 +17,11 @@ const NavItem = ({ item, level }) => {
     const theme = useTheme();
     const dispatch = useDispatch();
     const menu = useSelector((state) => state.menu);
-    const { drawerOpen, openItem } = menu;
+    const { drawerOpen, openItem, openItemCollapse } = menu;
+
+    const subMenuicons = {
+        LineOutlined
+    };
 
     let itemTarget = '_self';
     if (item.target) {
@@ -29,13 +34,42 @@ const NavItem = ({ item, level }) => {
     }
 
     const itemHandler = (id) => {
-        dispatch(activeItem({ openItem: [id] }));
+        // dispatch(activeItem({ openItem: [id] }));
+        if (item.type === `collapse`) {
+            let _openItemCollapse = openItemCollapse;
+            const indexItemCollapse = _openItemCollapse.findIndex((item) => {
+                return item === id;
+            });
+
+            if (indexItemCollapse > -1) {
+                _openItemCollapse = _openItemCollapse.filter((item) => {
+                    return item !== id;
+                });
+
+                dispatch(activeItemCollapse({ openItemCollapse: _openItemCollapse }));
+            } else {
+                dispatch(activeItemCollapse({ openItemCollapse: [..._openItemCollapse, id] }));
+            }
+        } else {
+            dispatch(activeItem({ openItem: [id] }));
+        }
     };
 
-    const Icon = item.icon;
-    const itemIcon = item.icon ? <Icon style={{ fontSize: drawerOpen ? '1rem' : '1.25rem' }} /> : false;
+    // const Icon = item.icon;
+    // const itemIcon = item.icon ? <Icon style={{ fontSize: drawerOpen ? '1rem' : '1.25rem' }} /> : false;
+
+    const Icon = item.isSubMenu === true ? subMenuicons.LineOutlined : item.icon;
+    const itemIcon =
+        item.isSubMenu === true ? (
+            <Icon style={{ fontSize: `5px` }} />
+        ) : item.icon ? (
+            <Icon style={{ fontSize: drawerOpen ? '1rem' : '1.25rem' }} />
+        ) : (
+            false
+        );
 
     const isSelected = openItem.findIndex((id) => id === item.id) > -1;
+    const isOpenCollapse = openItemCollapse.findIndex((id) => id === item.id) > -1;
 
     // active menu item on page load
     useEffect(() => {
@@ -43,6 +77,7 @@ const NavItem = ({ item, level }) => {
             .toString()
             .split('/')
             .findIndex((id) => id === item.id);
+
         if (currentIndex > -1) {
             dispatch(activeItem({ openItem: [item.id] }));
         }
@@ -92,7 +127,8 @@ const NavItem = ({ item, level }) => {
             {itemIcon && (
                 <ListItemIcon
                     sx={{
-                        minWidth: 28,
+                        // minWidth: 28,
+                        minWidth: item.isSubMenu ? 15 : 28,
                         color: isSelected ? iconSelectedColor : textColor,
                         ...(!drawerOpen && {
                             borderRadius: 1.5,
@@ -116,6 +152,7 @@ const NavItem = ({ item, level }) => {
                     {itemIcon}
                 </ListItemIcon>
             )}
+
             {(drawerOpen || (!drawerOpen && level !== 1)) && (
                 <ListItemText
                     primary={
@@ -134,6 +171,28 @@ const NavItem = ({ item, level }) => {
                     avatar={item.chip.avatar && <Avatar>{item.chip.avatar}</Avatar>}
                 />
             )}
+
+            {item.type === `collapse` ? (
+                isOpenCollapse === true ? (
+                    <UpOutlined
+                        sx={{
+                            mr: -1,
+                            opacity: 0,
+                            transform: open ? 'rotate(-180deg)' : 'rotate(0)',
+                            transition: '0.2s'
+                        }}
+                    />
+                ) : (
+                    <DownOutlined
+                        sx={{
+                            mr: -1,
+                            opacity: 0,
+                            transform: open ? 'rotate(-180deg)' : 'rotate(0)',
+                            transition: '0.2s'
+                        }}
+                    />
+                )
+            ) : null}
         </ListItemButton>
     );
 };
