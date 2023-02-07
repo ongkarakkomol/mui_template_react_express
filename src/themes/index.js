@@ -20,8 +20,8 @@ export default function ThemeCustomization({ children }) {
     const themeTypography = Typography(`'Public Sans', sans-serif`);
     const themeCustomShadows = useMemo(() => CustomShadows(theme), [theme]);
 
-    const themeOptions = useMemo(
-        () => ({
+    const themeOptions = useMemo(() => {
+        return {
             breakpoints: {
                 values: {
                     xs: 0,
@@ -42,9 +42,8 @@ export default function ThemeCustomization({ children }) {
             palette: theme.palette,
             customShadows: themeCustomShadows,
             typography: themeTypography
-        }),
-        [theme, themeTypography, themeCustomShadows]
-    );
+        };
+    }, [theme, themeTypography, themeCustomShadows]);
 
     const themes = createTheme(themeOptions);
     themes.components = componentsOverride(themes);

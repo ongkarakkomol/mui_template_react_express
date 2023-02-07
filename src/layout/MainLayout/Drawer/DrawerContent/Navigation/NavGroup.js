@@ -23,11 +23,11 @@ const NavGroup = ({ item }) => {
                 return (
                     <div>
                         <NavItem key={menuItem.id} item={menuItem} level={1} />
-                        {menuItem.subMenuLevel2
-                            ? menuItem.subMenuLevel2.map((subMenuLevel2) => {
-                                  subMenuLevel2 = { ...subMenuLevel2, isSubMenu: true };
+                        {menuItem.subMenu
+                            ? menuItem.subMenu.children?.map((item) => {
+                                  item = { ...item, isSubMenu: true };
                                   return findItemCollapse.length > 0 ? (
-                                      <NavItem key={subMenuLevel2.id} item={subMenuLevel2} level={2} />
+                                      <NavItem key={item.id} item={item} level={menuItem.subMenu.level || 2} />
                                   ) : null;
                               })
                             : null}

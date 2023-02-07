@@ -34,7 +34,7 @@ const NavItem = ({ item, level }) => {
     }
 
     const itemHandler = (id) => {
-        // dispatch(activeItem({ openItem: [id] }));
+        dispatch(activeItem({ openItem: [id] }));
         if (item.type === `collapse`) {
             let _openItemCollapse = openItemCollapse;
             const indexItemCollapse = _openItemCollapse.findIndex((item) => {
@@ -50,8 +50,6 @@ const NavItem = ({ item, level }) => {
             } else {
                 dispatch(activeItemCollapse({ openItemCollapse: [..._openItemCollapse, id] }));
             }
-        } else {
-            dispatch(activeItem({ openItem: [id] }));
         }
     };
 
@@ -175,20 +173,14 @@ const NavItem = ({ item, level }) => {
             {item.type === `collapse` ? (
                 isOpenCollapse === true ? (
                     <UpOutlined
-                        sx={{
-                            mr: -1,
-                            opacity: 0,
-                            transform: open ? 'rotate(-180deg)' : 'rotate(0)',
-                            transition: '0.2s'
+                        style={{
+                            fontSize: `0.6rem`
                         }}
                     />
                 ) : (
                     <DownOutlined
-                        sx={{
-                            mr: -1,
-                            opacity: 0,
-                            transform: open ? 'rotate(-180deg)' : 'rotate(0)',
-                            transition: '0.2s'
+                        style={{
+                            fontSize: `0.6rem`
                         }}
                     />
                 )
