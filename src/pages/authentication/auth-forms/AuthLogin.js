@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, Navigate } from 'react-router-dom';
 
 // material-ui
 import {
@@ -43,6 +43,32 @@ const AuthLogin = () => {
         event.preventDefault();
     };
 
+    const Login = () => {
+        fetch('https://63e078d865b57fe60643658a.mockapi.io/api/v1/jojo/login', {
+            method: 'GET'
+        }).then(async (res) => {
+            const data = await res.json();
+            // console.log('ajsldkjalksdasldkskdjklsd', data[0]);
+
+            fetch('http://localhost:5678/create_token', {
+                method: 'POST',
+                body: JSON.stringify(data[0]),
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            }).then(async (res) => {
+                // console.log('resresres', res);
+                const data = await res.json();
+                console.log('datadatadatadatadata : ', data);
+                <Navigate to="/" />;
+            });
+            // for (const [key, value] of Object.entries(data[0])) {
+            //     localStorage.setItem(key, value);
+            // }
+        });
+    };
+
     return (
         <>
             <Formik
@@ -57,8 +83,10 @@ const AuthLogin = () => {
                 })}
                 onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
                     try {
-                        setStatus({ success: false });
-                        setSubmitting(false);
+                        console.log('values', values);
+                        Login(values);
+                        setStatus({ success: true });
+                        setSubmitting(true);
                     } catch (err) {
                         setStatus({ success: false });
                         setErrors({ submit: err.message });
