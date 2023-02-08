@@ -4,14 +4,14 @@ const icons = {
     ProfileOutlined
 };
 
-const truckInfo = {
-    id: 'truckInfo',
-    title: 'ข้อมูลรถ',
+const admin = {
+    id: 'admin',
+    title: 'จัดการผู้ดูแลระบบ',
     type: 'group',
     children: [
         {
-            id: 'truckInfo.info',
-            title: 'ข้อมูลรถ',
+            id: 'admin.management',
+            title: 'จัดการผู้ดูแลระบบ',
             type: 'item',
             url: '/',
             icon: icons.ProfileOutlined
@@ -19,4 +19,4 @@ const truckInfo = {
     ]
 };
 
-export default truckInfo;
+export default admin;

@@ -10,15 +10,8 @@ const workInfo = {
     type: 'group',
     children: [
         {
-            id: 'workInfo.detail',
-            title: 'รายละเอียดงาน',
-            type: 'item',
-            url: '/',
-            icon: icons.ProfileOutlined
-        },
-        {
-            id: 'workInfo.status',
-            title: 'อัพเดทสถานะงาน (Pop-up)',
+            id: 'workInfo.info',
+            title: 'ข้อมูลงาน',
             type: 'item',
             url: '/',
             icon: icons.ProfileOutlined

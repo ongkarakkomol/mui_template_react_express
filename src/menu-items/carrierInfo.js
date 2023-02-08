@@ -13,18 +13,23 @@ const carrierInfo = {
     type: 'group',
     children: [
         {
-            id: 'carrierInfo.detail',
-            title: 'รายละเอียดคนขับรถ',
-            type: 'item',
+            id: 'carrierInfo.Info',
+            title: 'ข้อมูลคนขับรถ',
+            type: 'collapse',
             url: '/',
-            icon: icons.LoginOutlined
-        },
-        {
-            id: 'carrierInfo.tracking',
-            title: 'ติดตามคนขับ',
-            type: 'item',
-            url: '/',
-            icon: icons.ProfileOutlined
+            icon: icons.LoginOutlined,
+            subMenu: {
+                level: 2,
+                children: [
+                    {
+                        id: 'carrierInfo.detail',
+                        title: 'รายละเอียดคนขับรถ',
+                        type: 'item',
+                        url: '/',
+                        icon: icons.LoginOutlined
+                    }
+                ]
+            }
         }
     ]
 };
