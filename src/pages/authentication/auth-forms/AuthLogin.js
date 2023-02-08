@@ -50,7 +50,7 @@ const AuthLogin = () => {
             const data = await res.json();
             // console.log('ajsldkjalksdasldkskdjklsd', data[0]);
 
-            fetch('http://localhost:5678/create_token', {
+            fetch('/create_token', {
                 method: 'POST',
                 body: JSON.stringify(data[0]),
                 headers: {

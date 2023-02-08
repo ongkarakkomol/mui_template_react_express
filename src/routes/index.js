@@ -15,7 +15,7 @@ export default function ThemeRoutes() {
 
     const getToken = async () => {
         try {
-            let res = await fetch('http://localhost:5678/get_token', {
+            let res = await fetch('/get_token', {
                 method: 'GET'
             });
 
