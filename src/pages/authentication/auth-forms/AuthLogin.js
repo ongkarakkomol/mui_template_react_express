@@ -33,8 +33,9 @@ import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 
 const AuthLogin = () => {
     const [checked, setChecked] = React.useState(false);
-
     const [showPassword, setShowPassword] = React.useState(false);
+    const [isCreateToken, setIsCreateToken] = React.useState(false);
+
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
     };
@@ -48,7 +49,6 @@ const AuthLogin = () => {
             method: 'GET'
         }).then(async (res) => {
             const data = await res.json();
-            // console.log('ajsldkjalksdasldkskdjklsd', data[0]);
 
             fetch('/create_token', {
                 method: 'POST',
@@ -58,10 +58,11 @@ const AuthLogin = () => {
                     'Content-Type': 'application/json'
                 }
             }).then(async (res) => {
-                // console.log('resresres', res);
                 const data = await res.json();
-                console.log('datadatadatadatadata : ', data);
-                <Navigate to="/" />;
+                console.log('datadata;', data);
+                if (data.code == 1000) {
+                    setIsCreateToken(true);
+                }
             });
             // for (const [key, value] of Object.entries(data[0])) {
             //     localStorage.setItem(key, value);
@@ -71,6 +72,8 @@ const AuthLogin = () => {
 
     return (
         <>
+            {isCreateToken && <Navigate to="/" />}
+
             <Formik
                 initialValues={{
                     email: 'info@codedthemes.com',
