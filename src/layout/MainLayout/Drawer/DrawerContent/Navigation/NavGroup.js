@@ -11,18 +11,32 @@ import NavItem from './NavItem';
 
 const NavGroup = ({ item }) => {
     const menu = useSelector((state) => state.menu);
-    const { drawerOpen } = menu;
+    const { drawerOpen, openItemCollapse } = menu;
 
     const navCollapse = item.children?.map((menuItem) => {
         switch (menuItem.type) {
             case 'collapse':
+                const findItemCollapse = openItemCollapse.filter((item) => {
+                    return item === menuItem.id;
+                });
+
                 return (
-                    <Typography key={menuItem.id} variant="caption" color="error" sx={{ p: 2.5 }}>
-                        collapse - only available in paid version
-                    </Typography>
+                    <div>
+                        <NavItem key={menuItem.id} item={menuItem} level={1} />
+                        {menuItem.subMenu
+                            ? menuItem.subMenu.children?.map((item) => {
+                                  item = { ...item, isSubMenu: true };
+                                  return findItemCollapse.length > 0 ? (
+                                      <NavItem key={item.id} item={item} level={menuItem.subMenu.level || 2} />
+                                  ) : null;
+                              })
+                            : null}
+                    </div>
                 );
+
             case 'item':
                 return <NavItem key={menuItem.id} item={menuItem} level={1} />;
+
             default:
                 return (
                     <Typography key={menuItem.id} variant="h6" color="error" align="center">
