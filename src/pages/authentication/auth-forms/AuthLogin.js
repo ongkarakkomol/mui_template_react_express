@@ -59,7 +59,7 @@ const AuthLogin = () => {
                 }
             }).then(async (res) => {
                 const data = await res.json();
-                console.log('datadata;', data);
+
                 if (data.code == 1000) {
                     setIsCreateToken(true);
                 }

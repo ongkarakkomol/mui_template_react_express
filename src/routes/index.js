@@ -20,7 +20,6 @@ export default function ThemeRoutes() {
             });
 
             let result = await res.json();
-            console.log('result', result);
             if (result.code === 1000) {
                 console.log(result);
                 setIsLoggedIn(result.access_token);
