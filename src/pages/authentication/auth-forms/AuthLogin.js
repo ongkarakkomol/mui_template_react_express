@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link as RouterLink, Navigate } from 'react-router-dom';
+import { Link as RouterLink, Navigate, useNavigate } from 'react-router-dom';
 
 // material-ui
 import {
@@ -34,7 +34,8 @@ import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 const AuthLogin = () => {
     const [checked, setChecked] = React.useState(false);
     const [showPassword, setShowPassword] = React.useState(false);
-    const [isCreateToken, setIsCreateToken] = React.useState(false);
+
+    const navigate = useNavigate();
 
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
@@ -60,7 +61,7 @@ const AuthLogin = () => {
             }).then(async (res) => {
                 const data = await res.json();
                 if (data.code == 1000) {
-                    setIsCreateToken(true);
+                    navigate('/');
                 }
             });
             // for (const [key, value] of Object.entries(data[0])) {
@@ -71,8 +72,6 @@ const AuthLogin = () => {
 
     return (
         <>
-            {isCreateToken && <Navigate to="/" />}
-
             <Formik
                 initialValues={{
                     email: 'info@codedthemes.com',
