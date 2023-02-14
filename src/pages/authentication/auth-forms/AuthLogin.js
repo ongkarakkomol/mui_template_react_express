@@ -60,6 +60,7 @@ const AuthLogin = () => {
                 }
             }).then(async (res) => {
                 const data = await res.json();
+                console.log(data);
                 if (data.code == 1000) {
                     navigate('/');
                 }
