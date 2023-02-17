@@ -76,7 +76,7 @@ const AuthLogin = () => {
             <Formik
                 initialValues={{
                     email: 'info@codedthemes.com',
-                    password: '123456',
+                    password: '123456aseasd',
                     submit: null
                 }}
                 validationSchema={Yup.object().shape({
