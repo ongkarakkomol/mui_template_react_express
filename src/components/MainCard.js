@@ -38,7 +38,6 @@ const MainCard = forwardRef(
     ) => {
         const theme = useTheme();
         boxShadow = theme.palette.mode === 'dark' ? boxShadow || true : boxShadow;
-
         return (
             <Card
                 elevation={elevation || 0}
@@ -98,7 +97,7 @@ MainCard.propTypes = {
     divider: PropTypes.bool,
     elevation: PropTypes.number,
     secondary: PropTypes.node,
-    shadow: PropTypes.string,
+    // shadow: PropTypes.string,
     sx: PropTypes.object,
     title: PropTypes.string,
     codeHighlight: PropTypes.bool,
