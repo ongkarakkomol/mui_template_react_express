@@ -56,5 +56,5 @@ app.use((req, res, next) => {
 });
 
 app.listen(process.env.REACT_APP_SERVER_PORT, () => {
-    console.log(`server started on port ${process.env.REACT_APP_SERVER_PORT}`);
+    console.log(`server started on port ${process.env.PORT}`);
 });
