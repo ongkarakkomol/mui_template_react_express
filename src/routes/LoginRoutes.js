@@ -1,5 +1,4 @@
 import { lazy } from 'react';
-import { Navigate } from 'react-router-dom';
 
 // project import
 import Loadable from 'components/Loadable';
@@ -11,10 +10,10 @@ const AuthRegister = Loadable(lazy(() => import('pages/authentication/Register')
 
 // ==============================|| AUTH ROUTING ||============================== //
 
-const LoginRoutes = (isLogedIn) => [
+const LoginRoutes = () => [
     {
         path: '/',
-        element: isLogedIn ? <Navigate to="/" /> : <MinimalLayout />,
+        element: <MinimalLayout />,
         children: [
             {
                 path: 'login',
